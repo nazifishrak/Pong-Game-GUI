@@ -1,5 +1,6 @@
 
 from turtle import Turtle, Screen
+from Ball import Ball
 
 from Paddle import Paddle, HEIGHT, WIDTH
 
@@ -26,14 +27,14 @@ def create_middle_line(len):
 
 create_middle_line(50)
 
-paddle = Paddle([(-(WIDTH/2 -40),-40),(-(WIDTH/2 -40),-20),(-(WIDTH/2 -40),0),(-(WIDTH/2 -40),20),(-(WIDTH/2 -40),40)])
+paddle1 = Paddle([(-(WIDTH/2 -40),-40),(-(WIDTH/2 -40),-20),(-(WIDTH/2 -40),0),(-(WIDTH/2 -40),20),(-(WIDTH/2 -40),40)])
 paddle2 = Paddle([(WIDTH/2 -40,-40),(WIDTH/2 -40,-20),(WIDTH/2 -40,0),(WIDTH/2 -40,20),(WIDTH/2 -40,40)])
 
 screen.update()
-
+ball = Ball()
 while game_is_on:
-    screen.onkey(paddle.up,'Up')
-    screen.onkey(paddle.down,'Down')
+    screen.onkey(paddle1.up,'Up')
+    screen.onkey(paddle1.down,'Down')
     screen.onkey(paddle2.up,'w')
     screen.onkey(paddle2.down,'s')
     screen.update()
