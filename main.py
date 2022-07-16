@@ -5,12 +5,15 @@ from turtle import Turtle, Screen
 from Ball import Ball
 
 from Paddle import Paddle, HEIGHT, WIDTH
+from Score import ScoreBoard
 
 screen = Screen()
 screen.setup(WIDTH,HEIGHT)
 screen.listen()
 screen.bgcolor('black')
 screen.tracer(0)
+score_l = ScoreBoard((-60,(HEIGHT/2)-120))
+score_r = ScoreBoard((60,(HEIGHT/2)-120))
 game_is_on = True 
 
 def create_middle_line(len):
@@ -29,8 +32,8 @@ def create_middle_line(len):
 
 create_middle_line(50)
 
-paddle1 = Paddle([(-(WIDTH/2 -40),-40),(-(WIDTH/2 -40),-20),(-(WIDTH/2 -40),0),(-(WIDTH/2 -40),20),(-(WIDTH/2 -40),40)])
-paddle2 = Paddle([(WIDTH/2 -40,-40),(WIDTH/2 -40,-20),(WIDTH/2 -40,0),(WIDTH/2 -40,20),(WIDTH/2 -40,40)])
+paddle1 = Paddle([(-(WIDTH/2 -20),-40),(-(WIDTH/2 -20),-20),(-(WIDTH/2 -20),0),(-(WIDTH/2 -20),20),(-(WIDTH/2 -20),40)])
+paddle2 = Paddle([(WIDTH/2 -20,-40),(WIDTH/2 -20,-20),(WIDTH/2 -20,0),(WIDTH/2 -20,20),(WIDTH/2 -20,40)])
 
 screen.update()
 ball = Ball()
@@ -49,8 +52,24 @@ while game_is_on:
         ball.reflect_vertical()
     elif paddle2.check_collision(ball):
         ball.reflect_vertical()
-    elif ball.xcor()>= (WIDTH/2-10) or ball.xcor()<= -(WIDTH/2-10):
+    elif ball.xcor()>= (WIDTH/2-10):
+        score_l.increase_score()
+        ball.goto((randint(-(WIDTH/2- WIDTH/4), (WIDTH/2- WIDTH/4))),randint(-(HEIGHT/2- HEIGHT/4), (HEIGHT/2- HEIGHT/4)))
+        ball.move(choice([randint(0,45), randint(135,225), randint(290,360)]))
+    elif ball.xcor()<= -(WIDTH/2-10):
+        score_r.increase_score()
+        ball.goto((randint(-(WIDTH/2- WIDTH/4), (WIDTH/2- WIDTH/4))),randint(-(HEIGHT/2- HEIGHT/4), (HEIGHT/2- HEIGHT/4)))
+        ball.move(choice([randint(0,45), randint(135,225), randint(290,360)]))
+
+    if score_l.score==10:
+        score_l.game_over()
         game_is_on = False
+    elif score_r.score ==10:
+        score_r.game_over()
+        game_is_on = False
+    else:
+        pass
+
     
     time.sleep(0.05)
     screen.update()
