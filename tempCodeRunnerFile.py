@@ -1,1 +1,2 @@
-WIDTH/2 -20
+ct()
+    elif ball.xcor

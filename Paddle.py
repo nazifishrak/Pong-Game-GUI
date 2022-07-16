@@ -47,5 +47,15 @@ class Paddle():
                     box.forward(100)
 
 
+        def check_collision(self, ball: Turtle) -> bool:
+            for box in self.BOXES:
+                if box.distance(ball) <=25:
+                    print("collision")
+                    return True
 
-    
+                else:
+                    # print("No Collision")
+                    return False
+
+
+        
